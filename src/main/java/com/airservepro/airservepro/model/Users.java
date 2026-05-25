@@ -64,6 +64,7 @@ public class Users {
         return createdAt;
     }
 
+    @Enumerated(EnumType.STRING)
     Roles role;
 
     LocalDate createdAt;
