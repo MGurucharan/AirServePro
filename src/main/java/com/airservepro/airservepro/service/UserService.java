@@ -17,7 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String registerUser(@RequestBody UserRegisterDTO userRegisterDTO)
+    public String registerUser(UserRegisterDTO userRegisterDTO)
     {
         Users newUser = new Users();
         newUser.setName(userRegisterDTO.user());
@@ -28,7 +28,7 @@ public class UserService {
         return "Registered Successfully";
     }
 
-    public String loginUser(@RequestBody UserLoginDTO userLoginDTO)
+    public String loginUser(UserLoginDTO userLoginDTO)
     {
         // Verify the credentials ( email and password )
         // Find user record by email first
