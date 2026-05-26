@@ -14,11 +14,12 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String email;
+    @Column(unique = true, nullable = false)
+    private String email;
 
-    String password;
+    private String password;
 
-    String name;
+    private String name;
 
     public Long getId() {
         return id;
@@ -65,7 +66,7 @@ public class Users {
     }
 
     @Enumerated(EnumType.STRING)
-    Roles role;
+    public Roles role;
 
     LocalDate createdAt;
 

@@ -1,5 +1,6 @@
 package com.airservepro.airservepro.service;
 
+import com.airservepro.airservepro.dto.UserLoginDTO;
 import com.airservepro.airservepro.dto.UserRegisterDTO;
 import com.airservepro.airservepro.model.Users;
 import com.airservepro.airservepro.repository.UserRepository;
@@ -23,11 +24,26 @@ public class UserService {
         newUser.setPassword(userRegisterDTO.password());
         newUser.setEmail(userRegisterDTO.email());
         newUser.setRole(userRegisterDTO.role());
-
         userRepository.save(newUser);
-
         return "Registered Successfully";
     }
 
+    public String loginUser(@RequestBody UserLoginDTO userLoginDTO)
+    {
+        // Verify the credentials ( email and password )
+        // Find user record by email first
+        Users user=userRepository.findByEmail(userLoginDTO.email()).orElseThrow(()->new RuntimeException(String.format("User with email %s not found",userLoginDTO.email())));
 
+        // Get the email
+
+        String password=user.getPassword();
+
+        if(password.equals(userLoginDTO.password())) {
+            return "Logged in successfully";
+        }
+        else
+        {
+            return "Invalid Credentials";
+        }
+    }
 }

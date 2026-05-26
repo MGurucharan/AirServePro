@@ -1,6 +1,7 @@
 package com.airservepro.airservepro.controller;
 
 
+import com.airservepro.airservepro.dto.UserLoginDTO;
 import com.airservepro.airservepro.dto.UserRegisterDTO;
 import com.airservepro.airservepro.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,12 @@ public class UserController {
     public String registerUser(@RequestBody UserRegisterDTO userRegisterDTO)
     {
         return userService.registerUser(userRegisterDTO);
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestBody UserLoginDTO userLoginDTO)
+    {
+        return userService.loginUser(userLoginDTO);
     }
 
 }
