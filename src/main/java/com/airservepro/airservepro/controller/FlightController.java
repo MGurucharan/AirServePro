@@ -1,11 +1,12 @@
 package com.airservepro.airservepro.controller;
 
-import com.airservepro.airservepro.dto.FlightDTO;
+import com.airservepro.airservepro.dto.FlightRegisterDTO;
+import com.airservepro.airservepro.dto.FlightResponseDTO;
+import com.airservepro.airservepro.model.Flights;
 import com.airservepro.airservepro.service.FlightService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(("/api/flights"))
@@ -17,9 +18,15 @@ public class FlightController {
     }
 
     @PostMapping("/register")
-    public String registerFlight(@RequestBody FlightDTO flightDTO)
+    public String registerFlight(@RequestBody FlightRegisterDTO flightDTO)
     {
         return flightService.registerFlight(flightDTO);
+    }
+
+    @GetMapping("/display")
+    public List<FlightResponseDTO> displayFlights()
+    {
+        return flightService.displayFlights();
     }
 
 }

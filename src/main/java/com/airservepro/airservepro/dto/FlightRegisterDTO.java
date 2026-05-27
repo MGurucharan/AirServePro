@@ -5,7 +5,7 @@ import com.airservepro.airservepro.enums.FlightStatus;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public record FlightDTO(
+public record FlightRegisterDTO(
         String airlineName,
         String flightNo,
         Integer totalSeats,
@@ -16,7 +16,6 @@ public record FlightDTO(
         LocalDate departureDate,
         LocalDate arrivalDate,
         Double price,
-        FlightStatus status,
-        Integer availableSeats
+        FlightStatus status
 ) {
 }
