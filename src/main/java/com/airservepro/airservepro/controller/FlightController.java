@@ -18,7 +18,7 @@ public class FlightController {
     }
 
     @PostMapping("/register")
-    public String registerFlight(@RequestBody FlightRegisterDTO flightDTO)
+    public FlightResponseDTO registerFlight(@RequestBody FlightRegisterDTO flightDTO)
     {
         return flightService.registerFlight(flightDTO);
     }
