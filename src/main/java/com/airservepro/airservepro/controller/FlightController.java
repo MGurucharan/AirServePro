@@ -35,4 +35,10 @@ public class FlightController {
         return flightService.displayFlightsById(id);
     }
 
+    @PutMapping("/update/{id}")
+    public FlightResponseDTO updateFlight(@PathVariable Long id,@RequestBody FlightRegisterDTO flightDTO)
+    {
+        return flightService.updateFlightsById(id,flightDTO);
+    }
+
 }

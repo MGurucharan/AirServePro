@@ -20,7 +20,7 @@ public class FlightService {
     }
 
     //POST /api/flights
-    public String registerFlight(FlightRegisterDTO flightDTO)
+    public FlightResponseDTO registerFlight(FlightRegisterDTO flightDTO)
     {
         Flights flights = new Flights();
 
@@ -39,7 +39,7 @@ public class FlightService {
 
         flightRepository.save(flights);
 
-        return "Flight registered successfully!";
+        return convertToFlightResponseDTO(flights);
     }
 
     //GET /api/flights
@@ -66,17 +66,51 @@ public class FlightService {
         return convertToFlightResponseDTO(flight);
     }
 
+    //PUT /api/flights/{id}]
+
+    public FlightResponseDTO updateFlightsById(Long id,FlightRegisterDTO flightDTO)
+    {
+        Flights flight=flightRepository.findById(id).orElseThrow(()->new RuntimeException(String.format("Flight with id %d not found", id)));
+
+        flight.setAirlineName(flightDTO.airlineName());
+
+        // TS=180
+        // AS=50
+        // BS=130
+        if(flightDTO.totalSeats() !=0)
+        {
+            int bookedSeats=flight.getTotalSeats()-flight.getSeatsAvailable(); // 130
+
+            flight.setTotalSeats(flightDTO.totalSeats()); // Incoming DTO -> Larger Plane
+
+            flight.setSeatsAvailable(flight.getTotalSeats()-bookedSeats);
+        }
+
+        flight.setFlightNo(flightDTO.flightNo());
+        flight.setDeparture(flightDTO.departFrom());
+        flight.setDestination(flightDTO.destinationTo());
+        flight.setArrivalDate(flightDTO.arrivalDate());
+        flight.setArrivalTime(flightDTO.arrivalTime());
+        flight.setDepartureTime(flightDTO.departureTime());
+        flight.setDepartureDate(flightDTO.departureDate());
+        flight.setSeatsAvailable(flightDTO.totalSeats());
+        flight.setPrice(flightDTO.price());
+        flight.setStatus(flightDTO.status());
+
+        flightRepository.save(flight);
+
+        return convertToFlightResponseDTO(flight);
+    }
+
     public FlightResponseDTO convertToFlightResponseDTO(Flights flight)
     {
         return new FlightResponseDTO(flight.getAirlineName(),flight.getFlightNo(),flight.getDeparture(),flight.getDestination(),flight.getArrivalTime(),flight.getDepartureTime(),flight.getDepartureDate(),flight.getArrivalDate(),flight.getPrice(),flight.getStatus());
     }
 
-
 }
 
 /*
 
-GET /api/flights/{id}
-PUT /api/flights/{id}
+
 DELETE /api/flights/{id}
  */
