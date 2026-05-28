@@ -29,4 +29,10 @@ public class FlightController {
         return flightService.displayFlights();
     }
 
+    @GetMapping("/display/{id}")
+    public FlightResponseDTO displayFlight(@PathVariable Long id)
+    {
+        return flightService.displayFlightsById(id);
+    }
+
 }

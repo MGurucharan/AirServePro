@@ -59,6 +59,13 @@ public class FlightService {
 
     }
 
+    public FlightResponseDTO displayFlightsById(Long id)
+    {
+        Flights flight = flightRepository.findById(id).orElseThrow(()->new RuntimeException(String.format("Flight with id %d not found", id)));
+
+        return convertToFlightResponseDTO(flight);
+    }
+
     public FlightResponseDTO convertToFlightResponseDTO(Flights flight)
     {
         return new FlightResponseDTO(flight.getAirlineName(),flight.getFlightNo(),flight.getDeparture(),flight.getDestination(),flight.getArrivalTime(),flight.getDepartureTime(),flight.getDepartureDate(),flight.getArrivalDate(),flight.getPrice(),flight.getStatus());
