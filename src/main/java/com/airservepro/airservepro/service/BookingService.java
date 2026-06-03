@@ -29,6 +29,9 @@ public class BookingService {
     public String createBooking(BookingRequestDTO bookingRequestDTO) {
         // Find User
 
+        System.out.println("User ID = " + bookingRequestDTO.userId());
+        System.out.println("Flight ID = " + bookingRequestDTO.flightId());
+
         Users user=userRepository.findById(bookingRequestDTO.userId()).orElseThrow(()->new RuntimeException("User not found"));
 
         // Find Flight also
