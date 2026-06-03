@@ -4,7 +4,7 @@ import com.airservepro.airservepro.enums.Roles;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-
+import java.util.List;
 
 
 @Entity
@@ -20,6 +20,10 @@ public class Users {
     private String password;
 
     private String name;
+
+    // A user can have multiple bookings , hence oneTomany bookings !
+    @OneToMany(mappedBy = "user")
+    private List<Booking> bookings;
 
     public Long getId() {
         return id;
@@ -66,9 +70,9 @@ public class Users {
     }
 
     @Enumerated(EnumType.STRING)
-    public Roles role;
+    private Roles role;
 
-    LocalDate createdAt;
+    private LocalDate createdAt;
 
     @PrePersist
     public void prePersist() {

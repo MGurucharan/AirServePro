@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 public class Flights {
@@ -43,6 +44,10 @@ public class Flights {
 
     @Column(nullable = false)
     private Integer seatsAvailable;
+
+    @OneToMany(mappedBy = "flight")
+    private List<Booking> bookings;
+
 
     private Double price;
 
