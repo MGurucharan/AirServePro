@@ -19,6 +19,7 @@ public class Booking {
 
     private Integer seatsBooked;
 
+    @Enumerated(EnumType.STRING)
     private BookingStatus bookingStatus;
 
     public Long getId() {
